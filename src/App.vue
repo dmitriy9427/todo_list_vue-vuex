@@ -1,17 +1,20 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>Todo List</h1>
+    <TodoForm/>
+    <TodoList/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
+import TodoList from '@/components/TodoList.vue';
+import TodoForm from "@/components/TodoForm.vue";
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    TodoList,
+    TodoForm
   }
 }
 </script>
@@ -23,6 +26,14 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 60px 0 0;
+  padding: 0;
+}
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #2c3e50;
 }
 </style>
