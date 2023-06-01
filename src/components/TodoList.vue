@@ -55,6 +55,7 @@
     width: 15px;
     height: 15px;
     margin-left: auto;
+    cursor: pointer;
   }
   </style>
   
