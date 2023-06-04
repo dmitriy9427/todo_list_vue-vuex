@@ -5,18 +5,18 @@
       <li class="task">
       <input 
       @click="toggleTodo(todo.id)"
-      @change="todo.completed != todo.completed"
+      @change="todo.completed !== todo.completed"
        type="checkbox">
       <span class="index">{{ index + 1 }}.</span>
       
-        <h3 v-if="!editing" v-bind:class="{completed: todo.completed}">{{ todo.task }}</h3>
+        <p v-if="!editing" v-bind:class="{completed: todo.completed}">{{ todo.task }}</p>
         <input 
-        v-bind:value="todoText" 
         @change="todoTextChange"
+        v-model="todo.task"
         v-else 
         type="text">
         <div class="todo__btns">
-        <button @click="updateTodoI(todo)" class="todo__edit">{{editing ? 'Сохранить' : "Редактировать"}}</button>
+        <button @click="updateTodo" class="todo__edit">{{editing ? 'Сохранить' : "Редактировать"}}</button>
           <span class="delete" @click="deleteTodo(todo.id)">ⓧ</span>
         </div>
       </li>
@@ -29,22 +29,25 @@
   export default {
     data() {
       return {
-        todoText: "",
         editing: false
       }
     },
       computed: mapGetters(['validTodos']),
       methods: {
         ...mapActions(['toggleTodo', 'deleteTodo', 'updateTodo']),
-    todoTextChange(e) {
-      this.todoText = e.target.value;
+          todoTextChange(e) {
+            this.todo = e.target.value;
+            
+            console.log(this.todo)
     },
-    updateTodoI(todo) {
+    updateTodo(todo) {
       this.editing = this.editing === true ? false : true;
       if (this.editing) {
-        this.todoText = todo.task;
-      } else {
-        todo.task = this.todoText;
+        todo.task = this.todo;
+        
+        } else {
+          this.todo = todo.task
+          
       }
   },
 }

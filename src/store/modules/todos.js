@@ -4,11 +4,10 @@ export default {
   },
   getters: {
     validTodos(state) {
-      return state.todos.filter(i => {
-        return i.task
-      })
+      return state.todos.filter((i) => {
+        return i.task;
+      });
     },
-    getTodos: (state) => state.todos,
   },
 
   mutations: {
@@ -25,9 +24,8 @@ export default {
     },
     update_todo: (state, todo) => {
       let index = state.todos.findIndex((t) => t.id == todo.id);
-      if (index != -1) {
+      if (index !== -1) {
         state.todos[index] = todo;
-        console.log(index);
       }
     },
   },
