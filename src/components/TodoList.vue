@@ -1,17 +1,17 @@
 <template>
-    <ul class="tasks">
-      <li
-        v-for="(todo, i) in getTodos"
-        :key="todo.id"
-        :class="{ completed: todo.completed }"
-        class="task"
-        @click="toggleTodo(todo.id)"
-      >
-      <span class="index">{{ i + 1 }}.</span>
-        {{ todo.task }}
+  <div>
+    <ul class="tasks" v-for="(todo, index) in getTodos"
+        :key="todo.id">
+      <li class="task" >
+      <input @click="toggleTodo(todo.id)"
+      @change="todo.completed != todo.completed"
+       type="checkbox">
+      <span class="index">{{ index + 1 }}.</span>
+        <span v-bind:class="{completed: todo.completed}">{{ todo.task }}</span>
         <span class="delete" @click="deleteTodo(todo.id)">ⓧ</span>
       </li>
     </ul>
+  </div>
   </template>
   
   <script>
@@ -19,9 +19,8 @@
   export default {
     computed: mapGetters(['getTodos']),
     methods: {
-        ...mapActions(['toggleTodo']),
-        ...mapActions(['deleteTodo'])
-    }
+      ...mapActions(['toggleTodo', 'deleteTodo'])
+  },
   };
   </script>
   
@@ -56,6 +55,10 @@
     height: 15px;
     margin-left: auto;
     cursor: pointer;
+  }
+
+  .completed {
+    text-decoration: line-through;
   }
   </style>
   

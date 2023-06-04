@@ -1,9 +1,9 @@
 <template>
-    <form class="todo__form" @submit.prevent="addTodo">
+    <form class="todo__form" @submit.prevent="submit">
       <input
         class="todo-input"
         type="text"
-        placeholder="Введите задачу"
+        placeholder="Что нужно сделать"
         v-model="task"
       />
       <button class="form__btn">Добавить</button>
@@ -11,18 +11,22 @@
   </template>
   
   <script>
+  import { mapMutations } from 'vuex';
   export default {
     data() {
       return {
         task: "",
-        newId: 0
       };
     },
     methods: {
-      addTodo: function() {
-        this.$store.dispatch("addTodo", this);
-        this.newId++;
-        this.task = "";
+        ...mapMutations(['create_todo']),
+        submit() {
+            this.create_todo({
+              id: Date.now(),
+              task: this.task, 
+              completed: false
+            })
+            this.task = ''
       }
     }
   };

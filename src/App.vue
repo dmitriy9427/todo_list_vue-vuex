@@ -30,10 +30,13 @@ export default {
   padding: 0;
 }
 body {
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
-  width: 100%;
+  width: 90%;
   height: 100%;
   background-color: #2c3e50;
+}
+h1 {
+  color: whitesmoke;
 }
 </style>
