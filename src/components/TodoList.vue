@@ -1,14 +1,24 @@
 <template>
   <div>
-    <ul class="tasks" v-for="(todo, index) in getTodos"
+    <ul class="tasks" v-for="(todo, index) of validTodos"
         :key="todo.id">
-      <li class="task" >
-      <input @click="toggleTodo(todo.id)"
+      <li class="task">
+      <input 
+      @click="toggleTodo(todo.id)"
       @change="todo.completed != todo.completed"
        type="checkbox">
       <span class="index">{{ index + 1 }}.</span>
-        <span v-bind:class="{completed: todo.completed}">{{ todo.task }}</span>
-        <span class="delete" @click="deleteTodo(todo.id)">ⓧ</span>
+      
+        <h3 v-if="!editing" v-bind:class="{completed: todo.completed}">{{ todo.task }}</h3>
+        <input 
+        v-bind:value="todoText" 
+        @change="todoTextChange"
+        v-else 
+        type="text">
+        <div class="todo__btns">
+        <button @click="updateTodoI(todo)" class="todo__edit">{{editing ? 'Сохранить' : "Редактировать"}}</button>
+          <span class="delete" @click="deleteTodo(todo.id)">ⓧ</span>
+        </div>
       </li>
     </ul>
   </div>
@@ -17,10 +27,27 @@
   <script>
   import { mapActions, mapGetters } from "vuex";
   export default {
-    computed: mapGetters(['getTodos']),
-    methods: {
-      ...mapActions(['toggleTodo', 'deleteTodo'])
+    data() {
+      return {
+        todoText: "",
+        editing: false
+      }
+    },
+      computed: mapGetters(['validTodos']),
+      methods: {
+        ...mapActions(['toggleTodo', 'deleteTodo', 'updateTodo']),
+    todoTextChange(e) {
+      this.todoText = e.target.value;
+    },
+    updateTodoI(todo) {
+      this.editing = this.editing === true ? false : true;
+      if (this.editing) {
+        this.todoText = todo.task;
+      } else {
+        todo.task = this.todoText;
+      }
   },
+}
   };
   </script>
   
@@ -47,7 +74,20 @@
   .index {
     margin-right: 10px;
   }
+
+ .todo__btns {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: auto;
   
+   }
+
+   .todo__edit {
+    margin-right: 7px;
+  background-color: blue;
+  color: white;
+   }
   .delete {
     display: block;
     color: #d22;
