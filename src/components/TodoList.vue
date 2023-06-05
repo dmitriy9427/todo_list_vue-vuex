@@ -37,8 +37,6 @@
         ...mapActions(['toggleTodo', 'deleteTodo', 'updateTodo']),
           todoTextChange(e) {
             this.todo = e.target.value;
-            
-            console.log(this.todo)
     },
     updateTodo(todo) {
       this.editing = this.editing === true ? false : true;

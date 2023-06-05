@@ -14,12 +14,12 @@ export default {
     create_todo(state, newTodo) {
       return state.todos.unshift(newTodo);
     },
-    toggle_todo: (state, payload) => {
-      let item = state.todos.find((todo) => todo.id === payload);
+    toggle_todo: (state, id) => {
+      let item = state.todos.find((todo) => todo.id === id);
       item.completed = !item.completed;
     },
-    delete_todo: (state, payload) => {
-      let index = state.todos.findIndex((todo) => todo.id === payload);
+    delete_todo: (state, id) => {
+      let index = state.todos.findIndex((todo) => todo.id === id);
       state.todos.splice(index, 1);
     },
     update_todo: (state, todo) => {
