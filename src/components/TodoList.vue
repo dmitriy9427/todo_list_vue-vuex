@@ -1,14 +1,24 @@
 <template>
   <div>
-    <ul class="tasks" v-for="(todo, index) in getTodos"
+    <ul class="tasks" v-for="(todo, index) of validTodos"
         :key="todo.id">
-      <li class="task" >
-      <input @click="toggleTodo(todo.id)"
-      @change="todo.completed != todo.completed"
+      <li class="task">
+      <input 
+      @click="toggleTodo(todo.id)"
+      @change="todo.completed !== todo.completed"
        type="checkbox">
       <span class="index">{{ index + 1 }}.</span>
-        <span v-bind:class="{completed: todo.completed}">{{ todo.task }}</span>
-        <span class="delete" @click="deleteTodo(todo.id)">ⓧ</span>
+      
+        <p v-if="!editing" v-bind:class="{completed: todo.completed}">{{ todo.task }}</p>
+        <input 
+        @change="todoTextChange"
+        v-model="todo.task"
+        v-else 
+        type="text">
+        <div class="todo__btns">
+        <button @click="updateTodo" class="todo__edit">{{editing ? 'Сохранить' : "Редактировать"}}</button>
+          <span class="delete" @click="deleteTodo(todo.id)">ⓧ</span>
+        </div>
       </li>
     </ul>
   </div>
@@ -17,10 +27,28 @@
   <script>
   import { mapActions, mapGetters } from "vuex";
   export default {
-    computed: mapGetters(['getTodos']),
-    methods: {
-      ...mapActions(['toggleTodo', 'deleteTodo'])
+    data() {
+      return {
+        editing: false
+      }
+    },
+      computed: mapGetters(['validTodos']),
+      methods: {
+        ...mapActions(['toggleTodo', 'deleteTodo', 'updateTodo']),
+          todoTextChange(e) {
+            this.todo = e.target.value;
+    },
+    updateTodo(todo) {
+      this.editing = this.editing === true ? false : true;
+      if (this.editing) {
+        todo.task = this.todo;
+        
+        } else {
+          this.todo = todo.task
+          
+      }
   },
+}
   };
   </script>
   
@@ -47,7 +75,20 @@
   .index {
     margin-right: 10px;
   }
+
+ .todo__btns {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: auto;
   
+   }
+
+   .todo__edit {
+    margin-right: 7px;
+  background-color: blue;
+  color: white;
+   }
   .delete {
     display: block;
     color: #d22;
