@@ -4,7 +4,7 @@
 
 простой список задач, где можно добавлять задачу, редактировать, отмечать статус выполнения, удалять задачу.
 
-[Ссылка чтобы посмотреть &#128064;](https://dmitriy9427.github.io/todo_list_vue-vuex/)
+<a href="https://dmitriy9427.github.io/todo_list_vue-vuex/" target="_blank" rel="noopener noreferrer">Ссылка чтобы посмотреть &#128064;</a>
 
 ### Технологии
 
