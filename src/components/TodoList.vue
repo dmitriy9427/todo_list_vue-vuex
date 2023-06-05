@@ -9,14 +9,14 @@
        type="checkbox">
       <span class="index">{{ index + 1 }}.</span>
       
-        <p v-if="!editing" v-bind:class="{completed: todo.completed}">{{ todo.task }}</p>
+        <p v-if="!editing" :class="{completed: todo.completed}">{{ todo.task }}</p>
         <input 
+        v-else
         @change="todoTextChange"
         v-model="todo.task"
-        v-else 
         type="text">
         <div class="todo__btns">
-        <button @click="updateTodo" class="todo__edit">{{editing ? 'Сохранить' : "Редактировать"}}</button>
+        <button @click="updateTodoT" class="todo__edit">{{editing ? 'Сохранить' : "Редактировать"}}</button>
           <span class="delete" @click="deleteTodo(todo.id)">ⓧ</span>
         </div>
       </li>
@@ -38,11 +38,11 @@
           todoTextChange(e) {
             this.todo = e.target.value;
     },
-    updateTodo(todo) {
+    updateTodoT(todo) {
       this.editing = this.editing === true ? false : true;
       if (this.editing) {
         todo.task = this.todo;
-        
+        this.updateTodo(todo)
         } else {
           this.todo = todo.task
           

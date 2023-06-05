@@ -4,9 +4,7 @@ export default {
   },
   getters: {
     validTodos(state) {
-      return state.todos.filter((i) => {
-        return i.task;
-      });
+      return state.todos.filter((i) => i.task);
     },
   },
 
@@ -23,22 +21,22 @@ export default {
       state.todos.splice(index, 1);
     },
     update_todo(state, todo) {
-      let index = state.todos.findIndex((t) => t.id == todo.id);
-      if (index !== -1) {
+      let index = state.todos.findIndex((t) => todo.id === t.id);
+      if (index != -1) {
         state.todos[index] = todo;
       }
     },
   },
 
   actions: {
-    toggleTodo(context, payload) {
-      context.commit("toggle_todo", payload);
+    toggleTodo(context, id) {
+      context.commit("toggle_todo", id);
     },
-    deleteTodo(context, payload) {
-      context.commit("delete_todo", payload);
+    deleteTodo(context, id) {
+      context.commit("delete_todo", id);
     },
-    updateTodo(context, payload) {
-      context.commit("update_todo", payload);
+    updateTodo(context, todo) {
+      context.commit("update_todo", todo);
     },
   },
 };

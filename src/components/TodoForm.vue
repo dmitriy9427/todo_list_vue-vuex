@@ -24,7 +24,8 @@
             this.create_todo({
               id: Date.now(),
               task: this.task, 
-              completed: false
+              completed: false,
+              editing: false
             })
             this.task = ''
       }
